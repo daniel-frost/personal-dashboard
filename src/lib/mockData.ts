@@ -2,6 +2,8 @@
 // flavor and data variant so the FLAVOR/DATA toggle has something to show.
 // Phase 2 swaps the source from this module to Prisma.
 
+export type Bilingual<T = string> = { flavor: T; data: T };
+
 export type TaskCategory =
   | "finance"
   | "fitness"
@@ -11,13 +13,22 @@ export type TaskCategory =
 
 export type Task = {
   id: string;
-  title: { flavor: string; data: string };
+  title: Bilingual;
   category: TaskCategory;
   xp: number;
   gold: number;
   crit?: boolean;
   done?: boolean;
 };
+
+// ---------- Sidebar / branding ----------
+
+export const sidebarHeader: Bilingual = {
+  flavor: "Goals Cottage",
+  data: "Dashboard",
+};
+
+// ---------- Character / home ----------
 
 export const character = {
   name: { flavor: "Aurelius", data: "You" },
@@ -50,10 +61,10 @@ export const wizardBrief = {
   },
 };
 
-export const tasksHeader = { flavor: "Today's Quest Scrolls", data: "Today's Tasks" };
-export const sealedLabel = { flavor: "sealed", data: "sealed" };
-export const vitalsHeader = { flavor: "Vitals", data: "Vitals" };
-export const vitalsCompare = { flavor: "vs last fortnight", data: "vs last week" };
+export const tasksHeader: Bilingual = {
+  flavor: "Today's Quest Scrolls",
+  data: "Today's Tasks",
+};
 
 export const tasks: Task[] = [
   {
@@ -71,7 +82,7 @@ export const tasks: Task[] = [
   {
     id: "t2",
     title: {
-      flavor: "Train at the Brawn Guild — 60 min",
+      flavor: "Bear iron for an hour",
       data: "Lifting session — 60 min",
     },
     category: "fitness",
@@ -82,7 +93,7 @@ export const tasks: Task[] = [
   {
     id: "t3",
     title: {
-      flavor: "Solve 2 Code Guild riddles · Medium+",
+      flavor: "Solve two riddles of the Scriptorium",
       data: "LeetCode · 2 problems · Medium+",
     },
     category: "work",
@@ -92,7 +103,7 @@ export const tasks: Task[] = [
   {
     id: "t4",
     title: {
-      flavor: "Read 30 pages in the Lore archive",
+      flavor: "Read 30 pages of the gathered tomes",
       data: "Read 30 pages · Designing Data-Intensive",
     },
     category: "reading",
@@ -102,7 +113,7 @@ export const tasks: Task[] = [
   {
     id: "t5",
     title: {
-      flavor: "Dispatch 3 ravens to noble houses",
+      flavor: "Send three ravens to distant guilds",
       data: "Send 3 job applications",
     },
     category: "outreach",
@@ -111,33 +122,9 @@ export const tasks: Task[] = [
   },
 ];
 
-export type Vital = {
-  key: string;
-  label: { flavor: string; data: string };
-  value: number;
-  delta: number;
-};
-
-export const vitals: Vital[] = [
-  { key: "str", label: { flavor: "Strength", data: "Strength" }, value: 62, delta: 4 },
-  { key: "rec", label: { flavor: "Vigour", data: "Recovery" }, value: 78, delta: 7 },
-  { key: "con", label: { flavor: "Resolve", data: "Consistency" }, value: 54, delta: -2 },
-  { key: "lrn", label: { flavor: "Lore", data: "Learning" }, value: 71, delta: 3 },
-  { key: "dis", label: { flavor: "Discipline", data: "Discipline" }, value: 68, delta: 6 },
-  { key: "out", label: { flavor: "Charisma", data: "Outbound" }, value: 41, delta: -3 },
-];
-
-export const nav = [
-  { key: "home", label: { flavor: "Home", data: "Home" }, href: "/" },
-  { key: "tasks", label: { flavor: "Quests", data: "Tasks" }, href: "/tasks" },
-  { key: "finance", label: { flavor: "Coin", data: "Finance" }, href: "/finance" },
-  { key: "grocery", label: { flavor: "Market", data: "Grocery" }, href: "/grocery" },
-  { key: "profile", label: { flavor: "Self", data: "Profile" }, href: "/profile" },
-];
-
 export const categoryStyles: Record<
   TaskCategory,
-  { label: { flavor: string; data: string }; bg: string; fg: string }
+  { label: Bilingual; bg: string; fg: string }
 > = {
   finance: {
     label: { flavor: "Coin", data: "Finance" },
@@ -150,12 +137,12 @@ export const categoryStyles: Record<
     fg: "text-[#3e5a30]",
   },
   work: {
-    label: { flavor: "Code", data: "Work & Career" },
+    label: { flavor: "Scriptorium", data: "Work & Career" },
     bg: "bg-work-soft",
     fg: "text-[#4e3f80]",
   },
   reading: {
-    label: { flavor: "Lore", data: "Reading & Learning" },
+    label: { flavor: "Library", data: "Reading & Learning" },
     bg: "bg-reading-soft",
     fg: "text-[#7a3a2a]",
   },
@@ -163,5 +150,270 @@ export const categoryStyles: Record<
     label: { flavor: "Wayfarer", data: "Outreach" },
     bg: "bg-outreach-soft",
     fg: "text-[#2f4f7a]",
+  },
+};
+
+// ---------- Stat sheet ----------
+
+export const statsHeader: Bilingual = {
+  flavor: "Stat Sheet",
+  data: "Vitals",
+};
+export const statsCompare: Bilingual = {
+  flavor: "Δ vs last fortnight",
+  data: "vs last week",
+};
+
+export type Stat = {
+  key: "str" | "con" | "dex" | "int" | "wis" | "cha";
+  label: Bilingual;
+  value: number;
+  delta: number;
+  source: string;
+  /** CSS color token for the detail bar */
+  color: string;
+};
+
+export const stats: Stat[] = [
+  {
+    key: "str",
+    label: { flavor: "STR", data: "Strength" },
+    value: 62,
+    delta: 4,
+    source: "Whoop · 7-day lifting volume",
+    color: "var(--color-fitness)",
+  },
+  {
+    key: "con",
+    label: { flavor: "CON", data: "Recovery" },
+    value: 78,
+    delta: 7,
+    source: "Whoop · recovery score",
+    color: "var(--color-gem)",
+  },
+  {
+    key: "dex",
+    label: { flavor: "DEX", data: "Consistency" },
+    value: 54,
+    delta: -2,
+    source: "Active habit streaks",
+    color: "var(--color-fitness)",
+  },
+  {
+    key: "int",
+    label: { flavor: "INT", data: "Learning" },
+    value: 71,
+    delta: 3,
+    source: "LeetCode + reading pages",
+    color: "var(--color-work)",
+  },
+  {
+    key: "wis",
+    label: { flavor: "WIS", data: "Discipline" },
+    value: 68,
+    delta: 6,
+    source: "Bills paid + days under budget",
+    color: "var(--color-finance)",
+  },
+  {
+    key: "cha",
+    label: { flavor: "CHA", data: "Outbound" },
+    value: 41,
+    delta: -3,
+    source: "Ravens sent + posts inked",
+    color: "var(--color-crit)",
+  },
+];
+
+// ---------- Nav ----------
+
+export const nav = [
+  { key: "home", label: { flavor: "Home", data: "Home" }, href: "/" },
+  { key: "tasks", label: { flavor: "Quests", data: "Tasks" }, href: "/tasks" },
+  { key: "finance", label: { flavor: "Coin", data: "Finance" }, href: "/finance" },
+  { key: "grocery", label: { flavor: "Market", data: "Grocery" }, href: "/grocery" },
+  { key: "profile", label: { flavor: "Self", data: "Profile" }, href: "/profile" },
+];
+
+// ---------- Coin / Counting House ----------
+
+export const coinHeader = {
+  title: { flavor: "Counting House", data: "Finance" },
+  subtitle: {
+    flavor: "Debts, dues, and the vault toward the harbor city.",
+    data: "Debts, bills, and savings toward the next move.",
+  },
+};
+
+export type Strike = { amount: number; crit?: boolean };
+
+export type Boss = {
+  id: string;
+  name: Bilingual;
+  rank: Bilingual;
+  hp: number;
+  maxHp: number;
+  recentStrikes: Strike[];
+  minPayment: number;
+  recommendedStrike: number;
+};
+
+export const activeBoss: Boss = {
+  id: "b1",
+  name: { flavor: "The Plastic Wraith", data: "Chase Sapphire" },
+  rank: { flavor: "Avalanche · #1", data: "Avalanche · #1" },
+  hp: 4180,
+  maxHp: 6800,
+  recentStrikes: [
+    { amount: 175 },
+    { amount: 420, crit: true },
+    { amount: 90 },
+    { amount: 175 },
+  ],
+  minPayment: 95,
+  recommendedStrike: 240,
+};
+
+export type Foe = {
+  id: string;
+  name: Bilingual;
+  hp: number;
+  maxHp: number;
+};
+
+export const remainingFoes: Foe[] = [
+  {
+    id: "f1",
+    name: { flavor: "The Tuition Lich", data: "Sallie Mae" },
+    hp: 18400,
+    maxHp: 24000,
+  },
+  {
+    id: "f2",
+    name: { flavor: "The Iron Pursuer", data: "Auto loan" },
+    hp: 6200,
+    maxHp: 11000,
+  },
+  {
+    id: "f3",
+    name: { flavor: "The Bone Collector", data: "Medical · CityMed" },
+    hp: 1240,
+    maxHp: 3200,
+  },
+];
+
+export type Bill = {
+  id: string;
+  name: Bilingual;
+  status: Bilingual;
+  amount: number;
+};
+
+export const duesHeader = {
+  title: { flavor: "Dues to Settle", data: "Bills" },
+  available: 1240,
+};
+
+export const bills: Bill[] = [
+  {
+    id: "bill-rent",
+    name: { flavor: "Rent", data: "Rent" },
+    status: { flavor: "Scheduled · Jun 1", data: "Scheduled · Jun 1" },
+    amount: 2400,
+  },
+  {
+    id: "bill-sapphire",
+    name: { flavor: "Sapphire min", data: "Chase Sapphire min" },
+    status: { flavor: "Auto-pay · May 18", data: "Auto-pay · May 18" },
+    amount: 95,
+  },
+  {
+    id: "bill-electric",
+    name: { flavor: "Electric", data: "Electric" },
+    status: { flavor: "Unpaid · May 22", data: "Unpaid · May 22" },
+    amount: 87,
+  },
+  {
+    id: "bill-phone",
+    name: { flavor: "Phone", data: "Phone" },
+    status: { flavor: "Auto-pay · May 28", data: "Auto-pay · May 28" },
+    amount: 65,
+  },
+];
+
+export const vault = {
+  title: { flavor: "The Harbor Vault", data: "Savings · Move fund" },
+  current: 8400,
+  goal: 22000,
+  weeksRemaining: 71,
+  quote: {
+    flavor: "The harbor whispers your name.",
+    data: "On pace for the move at this rate.",
+  },
+};
+
+// ---------- Market / Grocery ----------
+
+export const marketHeader = {
+  title: { flavor: "Market", data: "Grocery" },
+  subtitle: {
+    flavor: "Provisions for the cottage. Aisles ordered for the chosen stall.",
+    data: "Grocery list. Aisles ordered for the chosen store.",
+  },
+};
+
+export const stores = ["Trader Joe's", "Whole Foods", "Wegmans"];
+
+export type GroceryCategory = "produce" | "dairy" | "pantry" | "frozen";
+
+export type GroceryItem = {
+  id: string;
+  name: string;
+  category: GroceryCategory;
+  qty?: string;
+  staple?: boolean;
+  done?: boolean;
+};
+
+export const groceryCategoryStyle: Record<
+  GroceryCategory,
+  { label: string; bg: string; fg: string }
+> = {
+  produce: { label: "Produce", bg: "bg-fitness-soft", fg: "text-[#3e5a30]" },
+  dairy: { label: "Dairy", bg: "bg-outreach-soft", fg: "text-[#2f4f7a]" },
+  pantry: { label: "Pantry", bg: "bg-finance-soft", fg: "text-[#8a6a1f]" },
+  frozen: { label: "Frozen", bg: "bg-work-soft", fg: "text-[#4e3f80]" },
+};
+
+export const groceryItems: GroceryItem[] = [
+  { id: "g1", name: "Spinach", category: "produce", qty: "1 bag", staple: true },
+  { id: "g2", name: "Lemons", category: "produce", qty: "4", done: true },
+  { id: "g3", name: "Avocados", category: "produce", qty: "2" },
+  { id: "g4", name: "Garlic", category: "produce", qty: "1 head", staple: true },
+  { id: "g5", name: "Greek yogurt", category: "dairy", qty: "32 oz", staple: true },
+  { id: "g6", name: "Eggs", category: "dairy", qty: "18", staple: true },
+  { id: "g7", name: "Olive oil", category: "pantry", qty: "500 ml", done: true },
+  { id: "g8", name: "Rolled oats", category: "pantry", qty: "1 lb", staple: true },
+  { id: "g9", name: "Black beans", category: "pantry", qty: "2 cans" },
+  { id: "g10", name: "Wild blueberries", category: "frozen", qty: "1 bag", staple: true },
+];
+
+// ---------- Self ----------
+
+export const selfHeader = {
+  title: { flavor: "The Self", data: "Profile" },
+  subtitle: {
+    flavor: "Stats, guilds, titles, journal.",
+    data: "Stats, guilds, titles, journal.",
+  },
+};
+
+// ---------- Quests Hall ----------
+
+export const questHallHeader = {
+  title: { flavor: "Quest Hall", data: "Tasks" },
+  subtitle: {
+    flavor: "Daily, weekly, epic, and the bounty board.",
+    data: "Daily, weekly, big-rock, and outstanding tasks.",
   },
 };
