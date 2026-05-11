@@ -53,9 +53,7 @@ function StatDetailCard() {
                   />
                 </div>
               </div>
-              <div className="label-mono mt-1 ml-[6.25rem] text-ink-faint">
-                {s.source}
-              </div>
+              <div className="label-mono mt-1 text-ink-faint">{s.source}</div>
             </li>
           );
         })}
