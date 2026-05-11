@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#f5efe0"/>
+  <g transform="translate(96 96)" shape-rendering="crispEdges">
+    <!-- Simple pixel wizard silhouette -->
+    <rect x="120" y="40" width="80" height="40" fill="#7a5fb0"/>
+    <rect x="100" y="80" width="120" height="20" fill="#7a5fb0"/>
+    <rect x="120" y="100" width="80" height="60" fill="#f3d2a5"/>
+    <rect x="140" y="120" width="12" height="12" fill="#3b2a1d"/>
+    <rect x="168" y="120" width="12" height="12" fill="#3b2a1d"/>
+    <rect x="100" y="160" width="120" height="100" fill="#6b8e5a"/>
+    <rect x="80" y="180" width="20" height="60" fill="#6b8e5a"/>
+    <rect x="220" y="180" width="20" height="60" fill="#6b8e5a"/>
+    <rect x="100" y="260" width="40" height="60" fill="#3b2a1d"/>
+    <rect x="180" y="260" width="40" height="60" fill="#3b2a1d"/>
+  </g>
+</svg>

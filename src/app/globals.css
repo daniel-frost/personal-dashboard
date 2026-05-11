@@ -1,26 +1,125 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Parchment / cottage palette */
+  --color-parchment: #f5efe0;
+  --color-parchment-50: #faf6ea;
+  --color-parchment-100: #f5efe0;
+  --color-parchment-200: #ece2c8;
+  --color-parchment-300: #ddd0ad;
+
+  --color-ink: #2c241b;
+  --color-ink-muted: #6b5e4c;
+  --color-ink-faint: #a89880;
+
+  /* Accents — muted, "tabletop RPG" feeling */
+  --color-gold: #c9a24a;
+  --color-gold-soft: #e8d49a;
+  --color-gem: #6b8aa8;
+  --color-gem-soft: #b9d0e0;
+
+  --color-finance: #d6b35a;
+  --color-finance-soft: #f1e1ad;
+  --color-fitness: #7a9c6b;
+  --color-fitness-soft: #c7dab6;
+  --color-work: #8d7ab5;
+  --color-work-soft: #d6cde9;
+  --color-reading: #c97a6a;
+  --color-reading-soft: #f1c8be;
+  --color-outreach: #6f8fb0;
+  --color-outreach-soft: #c2d4e3;
+  --color-crit: #cf8a4a;
+  --color-crit-soft: #f3d2a5;
+
+  --color-up: #6f9c63;
+  --color-down: #c97a6a;
+
+  /* Borders/shadows */
+  --color-rule: #d8c9a8;
+  --color-rule-strong: #b8a47a;
+
+  /* Font families (vars are set by next/font in layout.tsx) */
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-hand: var(--font-hand);
+  --font-pixel: var(--font-pixel);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html, body {
+  background: var(--color-parchment);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Reusable utility classes */
+@layer components {
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  .card {
+    background: #faf6ea;
+    border: 1px solid var(--color-rule);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.55rem;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid var(--color-rule);
+    background: #faf6ea;
+    color: var(--color-ink);
+  }
+
+  .pill-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem 0.5rem;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .rule-dashed {
+    border-top: 1px dashed var(--color-rule);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom checkbox for tasks */
+.task-checkbox {
+  appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid var(--color-rule-strong);
+  border-radius: 4px;
+  background: #faf6ea;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 120ms ease;
+}
+.task-checkbox:checked {
+  background: #cce0b8;
+  border-color: #8aa872;
+}
+.task-checkbox:checked::after {
+  content: "✓";
+  color: #4a6a3a;
+  font-size: 0.85rem;
+  line-height: 1;
 }
