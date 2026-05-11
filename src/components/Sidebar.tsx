@@ -7,7 +7,7 @@ import { useMode } from "@/lib/mode";
 export function Sidebar({ active = "home" }: { active?: string }) {
   const { mode } = useMode();
   return (
-    <aside className="hidden md:flex flex-col h-screen sticky top-0 w-56 shrink-0 px-7 py-8">
+    <aside className="hidden md:flex flex-col w-56 shrink-0 px-7 py-8 overflow-y-auto">
       <div className="label-mono mb-6">Dashboard</div>
       <nav className="flex flex-col gap-1">
         {nav.map((item) => {

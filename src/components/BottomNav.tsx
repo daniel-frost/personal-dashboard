@@ -9,7 +9,7 @@ export function BottomNav({ active = "home" }: { active?: string }) {
   return (
     <nav
       aria-label="Primary"
-      className="md:hidden fixed bottom-0 left-0 right-0 z-30 border-t border-rule bg-parchment-50/95 backdrop-blur supports-[backdrop-filter]:bg-parchment-50/80"
+      className="md:hidden flex-none border-t border-rule bg-parchment-50"
       style={{ paddingBottom: "max(env(safe-area-inset-bottom), 4px)" }}
     >
       <ul className="flex items-stretch justify-around px-1 pt-1.5 pb-1">
