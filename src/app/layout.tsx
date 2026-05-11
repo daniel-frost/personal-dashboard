@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Caveat, Pixelify_Sans } from "next/font/google";
 import "./globals.css";
+import { ModeProvider } from "@/lib/mode";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -49,7 +50,9 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${mono.variable} ${hand.variable} ${pixel.variable} h-full antialiased`}
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full" suppressHydrationWarning>
+        <ModeProvider>{children}</ModeProvider>
+      </body>
     </html>
   );
 }

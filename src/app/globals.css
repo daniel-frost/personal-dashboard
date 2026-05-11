@@ -49,6 +49,7 @@ html, body {
   background: var(--color-parchment);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  overflow-x: hidden;
 }
 
 /* Reusable utility classes */
@@ -65,7 +66,12 @@ html, body {
     background: #faf6ea;
     border: 1px solid var(--color-rule);
     border-radius: 14px;
-    padding: 1.25rem 1.5rem;
+    padding: 1rem 1.1rem;
+  }
+  @media (min-width: 640px) {
+    .card {
+      padding: 1.25rem 1.5rem;
+    }
   }
 
   .pill {

@@ -1,21 +1,24 @@
+"use client";
+
 import Link from "next/link";
 import { nav } from "@/lib/mockData";
+import { useMode } from "@/lib/mode";
 
 export function Sidebar({ active = "home" }: { active?: string }) {
+  const { mode } = useMode();
   return (
-    <aside className="flex flex-col h-screen sticky top-0 w-56 shrink-0 px-7 py-8">
+    <aside className="hidden md:flex flex-col h-screen sticky top-0 w-56 shrink-0 px-7 py-8">
       <div className="label-mono mb-6">Dashboard</div>
       <nav className="flex flex-col gap-1">
         {nav.map((item) => {
           const isActive = item.key === active;
+          const label = mode === "flavor" ? item.label.flavor : item.label.data;
           return (
             <Link
               key={item.key}
               href={item.href}
               className={`group flex items-center gap-3 rounded-md px-2 py-2 text-[0.78rem] font-mono uppercase tracking-[0.14em] transition-colors ${
-                isActive
-                  ? "bg-gold-soft text-ink"
-                  : "text-ink-muted hover:text-ink"
+                isActive ? "bg-gold-soft text-ink" : "text-ink-muted hover:text-ink"
               }`}
             >
               <span
@@ -24,7 +27,7 @@ export function Sidebar({ active = "home" }: { active?: string }) {
                   isActive ? "bg-gold" : "bg-rule"
                 }`}
               />
-              {item.label}
+              {label}
             </Link>
           );
         })}

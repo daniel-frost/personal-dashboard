@@ -2,7 +2,19 @@
   "permissions": {
     "allow": [
       "Bash(npm --version)",
-      "Bash(npx --yes create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --no-import-alias --use-npm --turbopack --yes)"
+      "Bash(npx --yes create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --no-import-alias --use-npm --turbopack --yes)",
+      "Bash(npm install *)",
+      "Bash(npx prisma *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /tmp/home.html -w \"HTTP %{http_code}\\\\n\" http://localhost:3000/)",
+      "Read(//tmp/**)",
+      "Bash(curl -s -o /tmp/home.html -w \"HTTP %{http_code}\\\\nbytes=%{size_download}\\\\n\" http://localhost:3000/)",
+      "Bash(mkdir -p /Users/danielfrost/Documents/personal-cottage/.claude && ls /Users/danielfrost/Documents/personal-cottage/.claude/)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(xargs -r kill)",
+      "Bash(git remote *)",
+      "Bash(git add *)",
+      "Bash(git rm *)"
     ]
   }
 }

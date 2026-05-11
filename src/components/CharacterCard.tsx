@@ -1,31 +1,49 @@
+"use client";
+
+import { useState } from "react";
 import { character } from "@/lib/mockData";
+import { useMode } from "@/lib/mode";
 import { Toggle } from "./Toggle";
 
 export function CharacterCard() {
+  const { mode, setMode } = useMode();
+  const [scope, setScope] = useState<"Today" | "Week">("Today");
   const pct = Math.round((character.xp / character.xpToNext) * 100);
+  const t = <T,>(v: { flavor: T; data: T }) => (mode === "flavor" ? v.flavor : v.data);
+
   return (
-    <section className="card relative pb-6">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <div className="label-mono text-crit/80" style={{ color: "var(--color-crit)" }}>
-            Personal Dashboard
+    <section className="card relative">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <div className="label-mono" style={{ color: "var(--color-crit)" }}>
+            {t(character.dashboardTitle)}
           </div>
           <div className="label-mono mt-1 text-ink-faint">
-            Personal Dashboard · Week {character.weekNumber} · {character.year}
+            {t(character.dashboardMeta)}
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <Toggle options={["Today", "Week"] as const} defaultValue="Today" />
-          <Toggle options={["Flavor", "Data"] as const} defaultValue="Data" />
+        <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2 shrink-0">
+          <Toggle
+            options={["Today", "Week"] as const}
+            value={scope}
+            onChange={setScope}
+          />
+          <Toggle
+            options={["Flavor", "Data"] as const}
+            value={mode === "flavor" ? "Flavor" : "Data"}
+            onChange={(v) => setMode(v === "Flavor" ? "flavor" : "data")}
+          />
         </div>
       </div>
 
-      <div className="mt-6 flex items-start justify-between gap-6">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-tight">{character.name}</h1>
-          <p className="text-ink-muted text-sm mt-1">— {character.recentAchievement}</p>
+      <div className="rule-dashed mt-4 pt-4 flex items-start justify-between gap-4 flex-wrap">
+        <div className="min-w-0">
+          <h1 className="text-3xl font-semibold tracking-tight">
+            {t(character.name)}
+          </h1>
+          <p className="text-ink-muted text-sm mt-1">— {t(character.subtitle)}</p>
         </div>
-        <div className="flex items-center gap-2 pt-2">
+        <div className="flex items-center gap-2 pt-1 flex-wrap">
           <span className="pill">
             <span className="text-ink-muted">Lv</span>
             <span className="ml-1 font-semibold">{character.level}</span>
@@ -43,7 +61,7 @@ export function CharacterCard() {
 
       <div className="mt-5">
         <div className="flex items-center justify-between label-mono">
-          <span>XP to Lv {character.level + 1}</span>
+          <span>{t(character.xpLabel)}</span>
           <span className="text-ink">
             {character.xp.toLocaleString()} / {character.xpToNext.toLocaleString()}
           </span>
