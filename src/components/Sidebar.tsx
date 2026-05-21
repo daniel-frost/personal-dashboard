@@ -1,22 +1,12 @@
-"use client";
-
 import Link from "next/link";
-import { nav, sidebarHeader } from "@/lib/mockData";
-import { useMode } from "@/lib/mode";
+import { nav } from "@/lib/mockData";
 
 export function Sidebar({ active = "home" }: { active?: string }) {
-  const { mode } = useMode();
-  const t = <T,>(v: { flavor: T; data: T }) =>
-    mode === "flavor" ? v.flavor : v.data;
   return (
     <aside className="hidden md:flex flex-col w-56 shrink-0 px-7 py-8 overflow-y-auto">
-      <div className="label-mono mb-6" style={{ color: "var(--color-crit)" }}>
-        {t(sidebarHeader)}
-      </div>
       <nav className="flex flex-col gap-1">
         {nav.map((item) => {
           const isActive = item.key === active;
-          const label = mode === "flavor" ? item.label.flavor : item.label.data;
           return (
             <Link
               key={item.key}
@@ -31,7 +21,7 @@ export function Sidebar({ active = "home" }: { active?: string }) {
                   isActive ? "bg-gold" : "bg-rule"
                 }`}
               />
-              {label}
+              {item.label}
             </Link>
           );
         })}

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="96" fill="#f5efe0"/>
+  <rect width="512" height="512" rx="96" fill="#fafafa"/>
   <g transform="translate(96 96)" shape-rendering="crispEdges">
     <!-- Simple pixel wizard silhouette -->
     <rect x="120" y="40" width="80" height="40" fill="#7a5fb0"/>

@@ -1,7 +1,4 @@
-"use client";
-
 import { wizardBrief } from "@/lib/mockData";
-import { useMode } from "@/lib/mode";
 
 function WizardSprite() {
   return (
@@ -26,9 +23,6 @@ function WizardSprite() {
 }
 
 export function WizardBrief() {
-  const { mode } = useMode();
-  const t = <T,>(v: { flavor: T; data: T }) => (mode === "flavor" ? v.flavor : v.data);
-
   return (
     <section className="card">
       <div className="flex gap-4 sm:gap-5">
@@ -36,24 +30,25 @@ export function WizardBrief() {
           <div className="rounded-lg border border-rule bg-parchment-50 p-1">
             <WizardSprite />
           </div>
-          <span className="label-mono text-[0.6rem]">The Wizard</span>
+          <span className="label-mono text-[0.6rem]">{wizardBrief.name}</span>
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-2 gap-2">
-            <span className="label-mono">The Wizard&apos;s Brief</span>
-            <button className="label-mono inline-flex items-center gap-1 text-ink-muted hover:text-ink transition-colors shrink-0">
+            <span className="label-mono">{wizardBrief.name}&apos;s Brief</span>
+            <button
+              type="button"
+              className="pill-tag inline-flex items-center gap-1 shrink-0 hover:opacity-80 transition-opacity"
+              style={{
+                background: "var(--color-crit-soft)",
+                color: "var(--color-crit)",
+              }}
+            >
               ↻ regenerate
             </button>
           </div>
-          <p
-            className="text-[1.05rem] leading-relaxed text-ink"
-            style={{ fontFamily: "var(--font-hand)" }}
-          >
-            {t(wizardBrief.text)}
+          <p className="font-mono text-sm leading-relaxed text-ink">
+            {wizardBrief.text}
           </p>
-          <div className="rule-dashed mt-4 pt-3 flex items-center justify-between label-mono text-ink-faint">
-            <span>{t(wizardBrief.footer)}</span>
-          </div>
         </div>
       </div>
     </section>

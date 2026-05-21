@@ -4,22 +4,16 @@ import { useState } from "react";
 import { Shell } from "@/components/Shell";
 import { SegmentedTabs } from "@/components/SegmentedTabs";
 import { selfHeader, stats, statsCompare } from "@/lib/mockData";
-import { useMode } from "@/lib/mode";
 
 const TABS = ["Stats", "Guilds", "Titles", "Journal"] as const;
 type Tab = (typeof TABS)[number];
 
 function StatDetailCard() {
-  const { mode } = useMode();
-  const t = <T,>(v: { flavor: T; data: T }) =>
-    mode === "flavor" ? v.flavor : v.data;
   return (
     <section className="card">
       <div className="flex items-center justify-between mb-3">
-        <span className="label-mono">
-          {mode === "flavor" ? "Stat Sheet · Detail" : "Vitals · Detail"}
-        </span>
-        <span className="label-mono text-ink-faint">{t(statsCompare)}</span>
+        <span className="label-mono">Stat Sheet · Detail</span>
+        <span className="label-mono text-ink-faint">{statsCompare}</span>
       </div>
       <ul className="flex flex-col">
         {stats.map((s, i) => {
@@ -32,7 +26,7 @@ function StatDetailCard() {
               className={`py-3 ${isLast ? "" : "border-b border-dashed border-rule"}`}
             >
               <div className="flex items-center gap-3">
-                <div className="label-mono w-12 shrink-0">{t(s.label)}</div>
+                <div className="label-mono w-12 shrink-0">{s.label}</div>
                 <div
                   className="text-2xl shrink-0 w-12"
                   style={{ fontFamily: "var(--font-pixel)", fontWeight: 600 }}
@@ -73,18 +67,15 @@ function Placeholder({ title, body }: { title: string; body: string }) {
 
 export default function ProfilePage() {
   const [tab, setTab] = useState<Tab>("Stats");
-  const { mode } = useMode();
-  const t = <T,>(v: { flavor: T; data: T }) =>
-    mode === "flavor" ? v.flavor : v.data;
   return (
     <Shell active="profile">
       <section className="card">
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div className="min-w-0">
             <div className="label-mono" style={{ color: "var(--color-crit)" }}>
-              {t(selfHeader.title)}
+              {selfHeader.title}
             </div>
-            <div className="text-sm text-ink-muted mt-1">{t(selfHeader.subtitle)}</div>
+            <div className="text-sm text-ink-muted mt-1">{selfHeader.subtitle}</div>
           </div>
           <div className="shrink-0">
             <SegmentedTabs options={TABS} value={tab} onChange={setTab} />

@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  /* Parchment / cottage palette */
-  --color-parchment: #f5efe0;
-  --color-parchment-50: #faf6ea;
-  --color-parchment-100: #f5efe0;
-  --color-parchment-200: #ece2c8;
-  --color-parchment-300: #ddd0ad;
+  /* Surface palette — off-white page, white cards */
+  --color-parchment: #fafafa;
+  --color-parchment-50: #ffffff;
+  --color-parchment-100: #fafafa;
+  --color-parchment-200: #f4f4f5;
+  --color-parchment-300: #e4e4e7;
 
   --color-ink: #2c241b;
   --color-ink-muted: #6b5e4c;
@@ -17,6 +17,8 @@
   --color-gold-soft: #e8d49a;
   --color-gem: #6b8aa8;
   --color-gem-soft: #b9d0e0;
+  --color-emerald: #059669;
+  --color-emerald-soft: #d1fae5;
 
   --color-finance: #d6b35a;
   --color-finance-soft: #f1e1ad;
@@ -63,7 +65,7 @@ html, body {
   }
 
   .card {
-    background: #faf6ea;
+    background: #ffffff;
     border: 1px solid var(--color-rule);
     border-radius: 14px;
     padding: 1rem 1.1rem;
@@ -85,7 +87,7 @@ html, body {
     letter-spacing: 0.06em;
     text-transform: uppercase;
     border: 1px solid var(--color-rule);
-    background: #faf6ea;
+    background: #ffffff;
     color: var(--color-ink);
   }
 
@@ -112,7 +114,7 @@ html, body {
   height: 1.25rem;
   border: 1px solid var(--color-rule-strong);
   border-radius: 4px;
-  background: #faf6ea;
+  background: #ffffff;
   cursor: pointer;
   display: inline-flex;
   align-items: center;

@@ -10,7 +10,6 @@ import {
   type GroceryCategory,
   type GroceryItem,
 } from "@/lib/mockData";
-import { useMode } from "@/lib/mode";
 
 const CATEGORY_ORDER: GroceryCategory[] = ["produce", "dairy", "pantry", "frozen"];
 
@@ -18,9 +17,6 @@ export default function GroceryPage() {
   const [store, setStore] = useState(stores[0]);
   const [items, setItems] = useState<GroceryItem[]>(seed);
   const [draft, setDraft] = useState("");
-  const { mode } = useMode();
-  const t = <T,>(v: { flavor: T; data: T }) =>
-    mode === "flavor" ? v.flavor : v.data;
 
   const grouped = useMemo(() => {
     const map: Record<GroceryCategory, GroceryItem[]> = {
@@ -55,9 +51,8 @@ export default function GroceryPage() {
       <header className="flex items-start justify-between gap-3 flex-wrap">
         <div className="min-w-0">
           <div className="label-mono" style={{ color: "var(--color-crit)" }}>
-            {t(marketHeader.title)}
+            {marketHeader.title}
           </div>
-          <div className="text-sm text-ink-muted mt-1">{t(marketHeader.subtitle)}</div>
         </div>
         <label className="shrink-0">
           <span className="sr-only">Store</span>
@@ -85,9 +80,7 @@ export default function GroceryPage() {
           placeholder="Add to the list..."
           className="flex-1 bg-transparent text-sm text-ink placeholder:text-ink-faint focus:outline-none"
         />
-        <span className="label-mono shrink-0">
-          {remaining} {mode === "flavor" ? "to gather" : "remaining"}
-        </span>
+        <span className="label-mono shrink-0">{remaining} to gather</span>
       </form>
 
       {CATEGORY_ORDER.map((cat) => {

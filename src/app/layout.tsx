@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Caveat, Pixelify_Sans } from "next/font/google";
 import "./globals.css";
-import { ModeProvider } from "@/lib/mode";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -26,18 +25,11 @@ const pixel = Pixelify_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Personal Cottage",
   description: "Your cozy command-center. The wizard sleeps when you sleep.",
-  applicationName: "Personal Cottage",
-  appleWebApp: {
-    capable: true,
-    title: "Cottage",
-    statusBarStyle: "default",
-  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f5efe0",
+  themeColor: "#fafafa",
   width: "device-width",
   initialScale: 1,
 };
@@ -51,7 +43,7 @@ export default function RootLayout({
       className={`${inter.variable} ${mono.variable} ${hand.variable} ${pixel.variable} h-full antialiased`}
     >
       <body className="min-h-full" suppressHydrationWarning>
-        <ModeProvider>{children}</ModeProvider>
+        {children}
       </body>
     </html>
   );

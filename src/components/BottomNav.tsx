@@ -1,11 +1,7 @@
-"use client";
-
 import Link from "next/link";
 import { nav } from "@/lib/mockData";
-import { useMode } from "@/lib/mode";
 
 export function BottomNav({ active = "home" }: { active?: string }) {
-  const { mode } = useMode();
   return (
     <nav
       aria-label="Primary"
@@ -15,7 +11,6 @@ export function BottomNav({ active = "home" }: { active?: string }) {
       <ul className="flex items-stretch justify-around px-1 pt-1.5 pb-1">
         {nav.map((item) => {
           const isActive = item.key === active;
-          const label = mode === "flavor" ? item.label.flavor : item.label.data;
           return (
             <li key={item.key} className="flex-1">
               <Link
@@ -30,7 +25,7 @@ export function BottomNav({ active = "home" }: { active?: string }) {
                     isActive ? "bg-gold" : "bg-rule"
                   }`}
                 />
-                <span className="block">{label}</span>
+                <span className="block">{item.label}</span>
               </Link>
             </li>
           );

@@ -5,7 +5,6 @@ import { Shell } from "@/components/Shell";
 import { SegmentedTabs } from "@/components/SegmentedTabs";
 import { QuestList } from "@/components/QuestList";
 import { questHallHeader, tasks } from "@/lib/mockData";
-import { useMode } from "@/lib/mode";
 
 const TABS = ["Active", "Epic", "Available"] as const;
 type Tab = (typeof TABS)[number];
@@ -24,9 +23,6 @@ function EmptyState({ label }: { label: string }) {
 
 export default function TasksPage() {
   const [tab, setTab] = useState<Tab>("Active");
-  const { mode } = useMode();
-  const t = <T,>(v: { flavor: T; data: T }) =>
-    mode === "flavor" ? v.flavor : v.data;
 
   const equipped = tasks.length;
 
@@ -36,10 +32,10 @@ export default function TasksPage() {
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div className="min-w-0">
             <div className="label-mono" style={{ color: "var(--color-crit)" }}>
-              {t(questHallHeader.title)}
+              {questHallHeader.title}
             </div>
             <div className="text-sm text-ink-muted mt-1">
-              {t(questHallHeader.subtitle)}
+              {questHallHeader.subtitle}
             </div>
           </div>
           <div className="shrink-0">
@@ -51,14 +47,12 @@ export default function TasksPage() {
       {tab === "Active" && (
         <section className="card">
           <div className="flex items-center justify-between mb-3">
-            <span className="label-mono">
-              {mode === "flavor" ? "Equipped Quests" : "Active Tasks"}
-            </span>
+            <span className="label-mono">Equipped Quests</span>
             <span className="label-mono text-ink-faint">
               {equipped} / 5 equipped · loadout full
             </span>
           </div>
-          <QuestList showCrit={false} />
+          <QuestList />
         </section>
       )}
 
