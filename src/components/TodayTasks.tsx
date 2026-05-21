@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { tasks as seedTasks, tasksHeader, type Task } from "@/lib/mockData";
 import { QuestList } from "./QuestList";
+import { ADD_EVENT } from "./AddMenu";
 
 export function TodayTasks() {
   const [tasks, setTasks] = useState<Task[]>(seedTasks);
@@ -13,6 +14,15 @@ export function TodayTasks() {
   useEffect(() => {
     if (adding) inputRef.current?.focus();
   }, [adding]);
+
+  useEffect(() => {
+    function onSelect(e: Event) {
+      const detail = (e as CustomEvent<{ kind: string }>).detail;
+      if (detail?.kind === "task") setAdding(true);
+    }
+    window.addEventListener(ADD_EVENT, onSelect);
+    return () => window.removeEventListener(ADD_EVENT, onSelect);
+  }, []);
 
   function toggle(id: string) {
     setTasks((prev) =>
@@ -49,18 +59,8 @@ export function TodayTasks() {
     <section className="card">
       <div className="flex items-center justify-between mb-3 gap-2">
         <span className="label-mono">{tasksHeader}</span>
-        <button
-          type="button"
-          onClick={() => setAdding(true)}
-          className="pill-tag inline-flex items-center gap-1 shrink-0 hover:opacity-80 transition-opacity"
-          style={{
-            background: "var(--color-crit-soft)",
-            color: "var(--color-crit)",
-          }}
-        >
-          + Add
-        </button>
       </div>
+
       {adding && (
         <div className="flex items-center gap-2 pb-3 border-b border-dashed border-rule mb-1">
           <input
@@ -73,7 +73,7 @@ export function TodayTasks() {
               if (e.key === "Escape") cancel();
             }}
             placeholder="What needs doing?"
-            className="flex-1 min-w-0 bg-transparent border border-rule rounded-md px-3 py-1.5 text-[0.95rem] text-ink placeholder:text-ink-faint focus:outline-none focus:border-rule-strong"
+            className="flex-1 min-w-0 bg-transparent border border-rule rounded-md px-3 py-1.5 text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:border-rule-strong"
           />
           <button
             type="button"

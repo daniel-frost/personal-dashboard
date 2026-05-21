@@ -11,8 +11,7 @@ export function WhoopCard() {
   return (
     <section className="card">
       <div className="flex items-center justify-between mb-2">
-        <span className="label-mono">Whoop</span>
-        <span className="label-mono text-ink-faint">recovery · strain</span>
+        <span className="label-mono">vitals</span>
       </div>
       <div className="flex items-baseline gap-2 flex-wrap">
         <span

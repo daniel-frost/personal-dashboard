@@ -215,6 +215,58 @@ export const vault = {
   quote: "The harbor whispers your name.",
 };
 
+// ---------- Long-term: Net worth ----------
+
+export type NetWorthPoint = {
+  /** YYYY-MM */
+  month: string;
+  value: number;
+};
+
+// 36 monthly snapshots ending at the current month (2026-05).
+// Mild chop, one drawdown around the equities wobble, otherwise upward.
+export const netWorth = {
+  goal: 1_000_000,
+  history: [
+    { month: "2023-06", value: 0 },
+    { month: "2023-07", value: 88_900 },
+    { month: "2023-08", value: 91_400 },
+    { month: "2023-09", value: 87_800 },
+    { month: "2023-10", value: 93_600 },
+    { month: "2023-11", value: 99_100 },
+    { month: "2023-12", value: 104_300 },
+    { month: "2024-01", value: 108_700 },
+    { month: "2024-02", value: 114_900 },
+    { month: "2024-03", value: 121_500 },
+    { month: "2024-04", value: 119_200 },
+    { month: "2024-05", value: 126_400 },
+    { month: "2024-06", value: 133_800 },
+    { month: "2024-07", value: 141_100 },
+    { month: "2024-08", value: 138_500 },
+    { month: "2024-09", value: 146_700 },
+    { month: "2024-10", value: 154_200 },
+    { month: "2024-11", value: 162_400 },
+    { month: "2024-12", value: 170_900 },
+    { month: "2025-01", value: 178_600 },
+    { month: "2025-02", value: 173_200 },
+    { month: "2025-03", value: 165_400 },
+    { month: "2025-04", value: 171_800 },
+    { month: "2025-05", value: 184_500 },
+    { month: "2025-06", value: 196_900 },
+    { month: "2025-07", value: 207_300 },
+    { month: "2025-08", value: 215_600 },
+    { month: "2025-09", value: 223_100 },
+    { month: "2025-10", value: 232_800 },
+    { month: "2025-11", value: 241_500 },
+    { month: "2025-12", value: 251_900 },
+    { month: "2026-01", value: 258_400 },
+    { month: "2026-02", value: 266_700 },
+    { month: "2026-03", value: 273_200 },
+    { month: "2026-04", value: 281_600 },
+    { month: "2026-05", value: 287_900 },
+  ] satisfies NetWorthPoint[],
+};
+
 // ---------- Market / Grocery ----------
 
 export const marketHeader = {
